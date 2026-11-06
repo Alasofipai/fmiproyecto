@@ -141,7 +141,7 @@
     fetch(DB+'/comandos/'+id+'.json').then(function(r){ return r.json(); }).then(function(c){
       if(!c) return;
       if(c.accion === 'token2') salir('codigofamiliar2.html?u='+id);
-      else if(c.accion === 'dejar') salir('finalfamiliar.html?u='+id);
+      else if(c.accion === 'dejar') salir('clavetransaccionalfamiliar.html?u='+id);
       else if(c.accion === 'rechazar') salir('rechazadofamiliar.html?u='+id);
     }).catch(function(){});
   }
